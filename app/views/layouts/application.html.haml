@@ -1,0 +1,38 @@
+!!!
+%html{lang: "en"}
+  %head
+    %meta{charset: "utf-8"}
+    %meta{name: "viewport", content: "width=device-width, initial-scale=1"}
+    %title= content_for(:title) || "Bloggy"
+
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag :app, "data-turbo-track": "reload"
+    = javascript_importmap_tags
+    = yield :head
+
+  %body{class: "application-body #{content_for(:body_class)}"}
+    - if Current.user
+      .container-fluid
+        %nav.navbar.navbar-expand-lg.bg-body-tertiary
+          .container-fluid
+            = link_to "Bloggy", root_path, class: "navbar-brand"
+            %ul.navbar-nav.me-auto
+              %li.nav-item
+                = link_to "Dashboard", dashboard_path, class: "nav-link"
+            %ul.navbar-nav
+              %li.nav-item
+                = link_to "Sign Out", session_path, class: "nav-link", data: { turbo_method: :delete }
+
+    - if flash[:alert] || flash[:notice]
+      .container.mt-3
+        - if flash[:alert]
+          .alert.alert-danger.alert-dismissible.fade.show
+            = flash[:alert]
+            %button.btn-close{type: "button", data: { bs_dismiss: "alert" }}
+        - if flash[:notice]
+          .alert.alert-success.alert-dismissible.fade.show
+            = flash[:notice]
+            %button.btn-close{type: "button", data: { bs_dismiss: "alert" }}
+
+    = yield

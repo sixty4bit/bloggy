@@ -1,0 +1,7 @@
+- content_for(:title, "Dashboard")
+
+.container.py-4
+  .row
+    .col
+      %h1 Welcome, #{Current.user.name}!
+      %p.lead You're signed in to #{Current.account.name}.

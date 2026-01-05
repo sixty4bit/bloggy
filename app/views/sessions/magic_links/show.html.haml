@@ -1,0 +1,21 @@
+- content_for(:title, "Enter Code")
+
+.card.shadow-sm
+  .card-body.p-4
+    %h1.h4.mb-4.text-center Enter Verification Code
+
+    - if flash[:magic_link_code]
+      .alert.alert-info
+        %strong Dev Mode:
+        Your code is
+        %code= flash[:magic_link_code]
+
+    = form_with url: session_magic_link_path, class: "mb-3" do |f|
+      .mb-3
+        = f.label :code, "Verification code", class: "form-label"
+        = f.text_field :code, class: "form-control form-control-lg text-center", required: true, autofocus: true, autocomplete: "one-time-code", maxlength: 6, placeholder: "ABC123"
+
+      = f.submit "Verify", class: "btn btn-primary btn-lg w-100"
+
+    %p.text-center.text-muted.mb-0
+      = link_to "Back to sign in", new_session_path
