@@ -20,6 +20,8 @@
             %ul.navbar-nav.me-auto
               %li.nav-item
                 = link_to "Dashboard", dashboard_path, class: "nav-link"
+              %li.nav-item
+                = link_to "Articles", articles_path, class: "nav-link"
             %ul.navbar-nav
               %li.nav-item
                 = link_to "Sign Out", session_path, class: "nav-link", data: { turbo_method: :delete }

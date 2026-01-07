@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   # Dashboard
   get "dashboard", to: "dashboard#show", as: :dashboard
 
+  # Articles
+  resources :articles
+
   # Authentication
   resource :session, only: [ :new, :create, :destroy ] do
     scope module: :sessions do

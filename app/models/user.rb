@@ -4,6 +4,8 @@ class User < ApplicationRecord
   belongs_to :account
   belongs_to :identity, optional: true
 
+  has_many :articles, dependent: :destroy
+
   validates :name, presence: true
   validates :identity_id, uniqueness: { scope: :account_id }, allow_nil: true
 

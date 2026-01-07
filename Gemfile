@@ -66,3 +66,5 @@ gem "haml-rails"
 gem "html2haml"
 gem "aws-sdk-s3", require: false
 gem "redcarpet"
+
+gem "minitest", "< 6.0"

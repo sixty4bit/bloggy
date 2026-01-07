@@ -13,3 +13,14 @@ module ActiveSupport
     # Add more helper methods to be used by all tests here...
   end
 end
+
+class ActionDispatch::IntegrationTest
+  def sign_in_as(user)
+    session = user.identity.sessions.create!(
+      ip_address: "127.0.0.1",
+      user_agent: "Test Browser"
+    )
+    token = session.generate_token_for(:session)
+    cookies[:session_token] = token
+  end
+end

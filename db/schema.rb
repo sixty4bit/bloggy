@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_05_202921) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_06_174543) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -19,6 +19,21 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_05_202921) do
     t.datetime "created_at", null: false
     t.string "name", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "articles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "account_id", null: false
+    t.text "body", null: false
+    t.datetime "created_at", null: false
+    t.boolean "published", default: false, null: false
+    t.datetime "published_at"
+    t.string "title", null: false
+    t.datetime "updated_at", null: false
+    t.uuid "user_id", null: false
+    t.index ["account_id", "created_at"], name: "index_articles_on_account_id_and_created_at"
+    t.index ["account_id", "published"], name: "index_articles_on_account_id_and_published"
+    t.index ["account_id"], name: "index_articles_on_account_id"
+    t.index ["user_id"], name: "index_articles_on_user_id"
   end
 
   create_table "identities", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -81,6 +96,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_05_202921) do
     t.index ["identity_id"], name: "index_users_on_identity_id"
   end
 
+  add_foreign_key "articles", "accounts"
+  add_foreign_key "articles", "users"
   add_foreign_key "magic_links", "identities"
   add_foreign_key "sessions", "identities"
   add_foreign_key "subscriptions", "accounts"
