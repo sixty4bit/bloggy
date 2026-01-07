@@ -1,0 +1,7 @@
+john:
+  id: <%= SecureRandom.uuid %>
+  account: acme
+  identity: john
+  name: John Doe
+  role: owner
+  active: true

@@ -1,0 +1,4 @@
+john:
+  id: <%= SecureRandom.uuid %>
+  email_address: john@example.com
+  staff: false

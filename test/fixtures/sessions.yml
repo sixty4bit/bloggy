@@ -1,0 +1,5 @@
+john_session:
+  id: <%= SecureRandom.uuid %>
+  identity: john
+  ip_address: 127.0.0.1
+  user_agent: Test Browser

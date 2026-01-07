@@ -1,0 +1,8 @@
+- content_for(:title, "New Article")
+
+.container.py-4
+  .row
+    .col-lg-8
+      %h1 New Article
+
+      = render "form", article: @article

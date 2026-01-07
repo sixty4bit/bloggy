@@ -1,0 +1,27 @@
+= form_with model: article, class: "needs-validation" do |f|
+  - if article.errors.any?
+    .alert.alert-danger
+      %h4= "#{pluralize(article.errors.count, 'error')} prohibited this article from being saved:"
+      %ul.mb-0
+        - article.errors.full_messages.each do |message|
+          %li= message
+
+  .mb-3
+    = f.label :title, class: "form-label"
+    = f.text_field :title, class: "form-control #{'is-invalid' if article.errors[:title].any?}", required: true
+    - if article.errors[:title].any?
+      .invalid-feedback= article.errors[:title].first
+
+  .mb-3
+    = f.label :body, class: "form-label"
+    = f.text_area :body, class: "form-control #{'is-invalid' if article.errors[:body].any?}", rows: 12, required: true
+    - if article.errors[:body].any?
+      .invalid-feedback= article.errors[:body].first
+
+  .mb-3.form-check
+    = f.check_box :published, class: "form-check-input"
+    = f.label :published, "Publish this article", class: "form-check-label"
+
+  .d-flex.gap-2
+    = f.submit class: "btn btn-primary"
+    = link_to "Cancel", articles_path, class: "btn btn-outline-secondary"

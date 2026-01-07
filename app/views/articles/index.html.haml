@@ -1,0 +1,29 @@
+- content_for(:title, "Articles")
+
+.container.py-4
+  .row
+    .col
+      .d-flex.justify-content-between.align-items-center.mb-4
+        %h1 Articles
+        = link_to "New Article", new_article_path, class: "btn btn-primary"
+
+      - if @articles.any?
+        .list-group
+          - @articles.each do |article|
+            .list-group-item
+              .d-flex.justify-content-between.align-items-start
+                .ms-2.me-auto
+                  .fw-bold= link_to article.title, article
+                  %small.text-muted
+                    by #{article.user.name}
+                    = " \u2022 "
+                    = time_ago_in_words(article.created_at)
+                    ago
+                - if article.published?
+                  %span.badge.bg-success Published
+                - else
+                  %span.badge.bg-secondary Draft
+      - else
+        .alert.alert-info
+          No articles yet.
+          = link_to "Create your first article", new_article_path

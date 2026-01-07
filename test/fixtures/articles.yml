@@ -1,0 +1,17 @@
+first_post:
+  id: <%= SecureRandom.uuid %>
+  account: acme
+  user: john
+  title: My First Post
+  body: This is the body of my first post.
+  published: true
+  published_at: <%= 1.day.ago %>
+
+draft_post:
+  id: <%= SecureRandom.uuid %>
+  account: acme
+  user: john
+  title: Draft Post
+  body: This is a draft that is not yet published.
+  published: false
+  published_at: null
